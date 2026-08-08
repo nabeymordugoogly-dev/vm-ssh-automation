@@ -3,7 +3,7 @@
 :check_running
 echo [INFO] Checking if virtual machine is already running...
 "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" showvminfo "UbuntuLocal" | findstr /C:"State: running" /C:"State: paused" > nul
-
+# "UbuntuLocal" заменить на название вашей ВМ ("UbuntuLocal" replace with the name of your VM)
 if %errorlevel% equ 0 (
     echo [OK] Virtual machine is already running.
     goto ssh_connect
@@ -11,7 +11,7 @@ if %errorlevel% equ 0 (
 
 echo [INFO] Starting virtual machine in background mode...
 "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" startvm "UbuntuLocal" --type headless 2>nul
-
+# "UbuntuLocal" заменить на название вашей ВМ ("UbuntuLocal" replace with the name of your VM)
 if %errorlevel% equ 0 (
     echo [OK] Virtual machine started successfully.
     goto ssh_connect
