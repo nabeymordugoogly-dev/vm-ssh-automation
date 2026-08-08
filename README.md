@@ -4,7 +4,7 @@
 [![VirtualBox](https://img.shields.io/badge/VirtualBox-7.0+-orange)](https://www.virtualbox.org)
 [![SSH](https://img.shields.io/badge/SSH-OpenSSH-green)](https://www.openssh.com)
 
-Описание
+## Описание
 
 **Запускайте вашу виртуальную машину и подключайтесь к ней по SSH одной командой без лишних окон и задержек.**
 
@@ -65,14 +65,16 @@ ssh-keygen -t ed25519 -C "комментарий ключа"
 ```
 > где "комментарий ключа" это любая фраза позволяющая его найти среди других ключей
 
-###### Копирование публичного ключа на сервер
+#### Копирование публичного ключа на сервер
 
 В командной строке выполните: 
 ```markdown 
 type C:\Users\%USERNAME%\.ssh\id_ed25519.pub | ssh VMuser@VM-ip "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```
 где:
+
 > VMuser - пользователь виртуальной машины
+
 > VM-ip - IP-адрес виртуальной машины
 
 Проверяем подключение в командной строке: ssh myserver
@@ -87,15 +89,19 @@ type C:\Users\%USERNAME%\.ssh\id_ed25519.pub | ssh VMuser@VM-ip "mkdir -p ~/.ssh
 
 ## Использование
 
-Запуск виртуальной машины
+#### Запуск виртуальной машины
 
-В командной строке строке выполните: RunVM
+В командной строке строке выполните: 
+```markdown
+RunVM
+```
 Скрипт проверит, не запущена ли уже ВМ.
 Если ВМ не запущена — запустит её в фоновом режиме.
 Будет ожидать, пока SSH-сервер станет доступен (максимум 60 секунд).
 Автоматически подключится по SSH.
 
 Пример вывода:
+```markdown
 [INFO] Checking if virtual machine is already running...
 [INFO] Starting virtual machine in background mode...
 Waiting for VM "UbuntuLocal" to power on...
@@ -113,36 +119,40 @@ Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-31-generic x86_64)
 
 Last login: Fri Aug 7 14:03:12 2026 from 192.168.1.0
 VMuser@ubuntu:~$
+```
 
-Выключение виртуальной машины
+#### Выключение виртуальной машины
 
-В командной строке выполните: offVM
+В командной строке выполните: 
+```markdown
+offVM
+```
 Скрипт отправит сигнал корректного завершения работы (ACPI).
 Виртуальная машина выключится так же, как при нажатии кнопки "Выключить" в системе.
-
+```markdown
 Пример вывода:
 [INFO] Shutting down virtual machine gracefully.
 [OK] Shutdown signal sent.
 [INFO] The VM will shut down gracefully, may take a few seconds.
-
+```
 ## Устранение проблем
 
-1. ssh myserver запрашивает пароль.
+#### 1. ssh myserver запрашивает пароль.
 > Файлы в папке C:\Users\%USERNAME%\.ssh должны принадлежать только вашему пользователю.
 > Убедитесь, что в свойствах папки и файлов нет группы Users или Authenticated Users.
 > Проверьте, что ключ добавлен на сервер cat ~/.ssh/authorized_keys
 > Попробуйте подключиться с явным указанием ключа: ssh -i C:\Users\%USERNAME%\.ssh\id_ed25519 VMuser@VM-ip
 
-2. Таймаут при подключении (SSH не доступен).
+#### 2. Таймаут при подключении (SSH не доступен).
 > Проверьте, запущена ли ВМ: "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list runningvms
 > Проверьте доступность ВМ по сети: ping 192.168.1.0
 > Проверьте, запущен ли SSH-сервер на ВМ: sudo systemctl status ssh
 
-3. Виртуальная машина не запускается.
+#### 3. Виртуальная машина не запускается.
 >  Проверьте, что ВМ с правильным именем существует: "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list vms
 > Если ВМ в состоянии "locked", сбросьте её: "C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" controlvm "UbuntuLocal" poweroff
 
-4. Скрипты не запускаются из любой папки.
+#### 4. Скрипты не запускаются из любой папки.
 > Проверьте, что папка добавлена в PATH: echo %Path% | findstr "Working_documents"
 
 ## Преимущества 
