@@ -65,9 +65,12 @@ ssh-keygen -t ed25519 -C "комментарий ключа"
 ```
 > где "комментарий ключа" это любая фраза позволяющая его найти среди других ключей
 
-##### Копирование публичного ключа на сервер
+###### Копирование публичного ключа на сервер
 
-В командной строке выполните: type C:\Users\%USERNAME%\.ssh\id_ed25519.pub | ssh VMuser@VM-ip "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+В командной строке выполните: 
+```markdown 
+type C:\Users\%USERNAME%\.ssh\id_ed25519.pub | ssh VMuser@VM-ip "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+```
 где:
 > VMuser - пользователь виртуальной машины
 > VM-ip - IP-адрес виртуальной машины
